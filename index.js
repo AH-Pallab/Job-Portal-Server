@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.iclhmml.mongodb.net/?appName=Cluster0`;
 
 const app = express();
@@ -36,5 +36,14 @@ async function run() {
     const result = await cursor.toArray();
     res.send(result);
   });
+
+  app.get("/users/:id", async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const result = await jobCollections.findOne(query);
+    res.send(result);
+  });
+
+  
 }
 run();
