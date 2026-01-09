@@ -52,11 +52,11 @@ async function run() {
     const result = await applicationCollections.insertOne(application);
     res.send(result);
   })
-  app.get("/applications",async(req,res)=>{
-    const cursor = applicationCollections.find();
-    const result = await cursor.toArray();
-    res.send(result);
-  })
+  // app.get("/applications",async(req,res)=>{
+  //   const cursor = applicationCollections.find();
+  //   const result = await cursor.toArray();
+  //   res.send(result);
+  // })
   
 }
 run();
