@@ -30,6 +30,7 @@ async function run() {
   console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
   const jobCollections = client.db("jobDob").collection("jobs");
+  const applicationCollections = client.db("jobApplications").collection("applications");
 
   app.get("/users", async (req, res) => {
     const cursor = jobCollections.find();
@@ -44,6 +45,18 @@ async function run() {
     res.send(result);
   });
 
+  //applications
+  app.post('/applications',async(req,res)=>{
+    const application = req.body;
+    console.log("application: ",application);
+    const result = await applicationCollections.insertOne(application);
+    res.send(result);
+  })
+  app.get("/applications",async(req,res)=>{
+    const cursor = applicationCollections.find();
+    const result = await cursor.toArray();
+    res.send(result);
+  })
   
 }
 run();
